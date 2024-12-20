@@ -1,0 +1,71 @@
+import Adafruit_DHT
+import Adafruit_CharLCD as LCD
+import time
+
+# Define the pins for the DHT11 sensor and LCD
+DHT_SENSOR = Adafruit_DHT.DHT11
+DHT_PIN = 4 # DHT11 sensor connected to GPIO pin 4
+LCD_RS = 26 # LCD RS pin connected to GPIO pin 26
+LCD_EN = 19 # LCD EN pin connected to GPIO pin 19
+LCD_D4 = 13 # LCD D4 pin connected to GPIO pin 13
+LCD_D5 = 6  # LCD D5 pin connected to GPIO pin 6
+LCD_D6 = 5  # LCD D6 pin connected to GPIO pin 5
+LCD_D7 = 11 # LCD D7 pin connected to GPIO pin 11
+LCD_COLUMNS = 16
+LCD_ROWS = 2
+
+# Initialize the LCD
+lcd = LCD.Adafruit_CharLCD(LCD_RS, LCD_EN, LCD_D4, LCD_D5, LCD_D6, LCD_D7, LCD_COLUMNS, LCD_ROWS)
+
+while True:
+    # Read temperature and humidity
+    humidity, temperature = Adafruit_DHT.read(DHT_SENSOR, DHT_PIN)
+
+    # Check if any reads failed and exit early (to try again)
+    if humidity is not None and temperature is not None:
+        lcd.clear()
+        lcd.message(f"Temp: {temperature:.1f} C\nHumidity: {humidity:.1f} %")
+        print(f"Temp: {temperature:.1f} C  Humidity: {humidity:.1f} %")
+    else:
+        lcd.clear()
+        lcd.message("Sensor failure")
+        print("Failed to retrieve data from humidity sensor")
+
+    time.sleep(2) # Wait for 2 seconds before taking another measurement
+
+
+
+
+
+
+#DHT11 Sensor:
+
+#Connect the VCC pin of the DHT11 sensor to the 3.3V pin on the Raspberry Pi.
+
+#Connect the GND pin of the DHT11 sensor to the GND pin on the Raspberry Pi.
+
+#Connect the DATA pin of the DHT11 sensor to GPIO pin 4 on the Raspberry Pi.
+
+#LCD:
+
+#Connect the RS pin of the LCD to GPIO pin 26 on the Raspberry Pi.
+
+#Connect the EN pin of the LCD to GPIO pin 19 on the Raspberry Pi.
+
+#Connect the D4 pin of the LCD to GPIO pin 13 on the Raspberry Pi.
+
+#Connect the D5 pin of the LCD to GPIO pin 6 on the Raspberry Pi.
+
+#Connect the D6 pin of the LCD to GPIO pin 5 on the Raspberry Pi.
+
+#Connect the D7 pin of the LCD to GPIO pin 11 on the Raspberry Pi.
+
+#Connect the VCC and GND pins of the LCD to the 5V and GND pins on the Raspberry Pi, respectively.
+
+#Connect the V0 pin of the LCD to the middle pin of a 10k potentiometer, with the other two pins connected to 5V and GND.
+
+#Power Supply:
+
+#Ensure the Raspberry Pi is powered using an appropriate power source (e.g., a USB power adapter).
+
+
