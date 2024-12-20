@@ -1,0 +1,22 @@
+import RPi.GPIO as GPIO
+import time
+
+# Define the pins for the Hall sensor and LED
+HALL_SENSOR_PIN = 17 # Hall sensor connected to GPIO pin 17
+LED_PIN = 27 # LED connected to GPIO pin 27
+
+# Set up the GPIO mode
+GPIO.setmode(GPIO.BCM) # Use BCM pin numbering
+GPIO.setup(HALL_SENSOR_PIN, GPIO.IN) # Set Hall sensor pin as input
+GPIO.setup(LED_PIN, GPIO.OUT) # Set LED pin as output
+
+while True:
+    if GPIO.input(HALL_SENSOR_PIN): # If magnetic field is detected
+        GPIO.output(LED_PIN, GPIO.HIGH) # Turn on the LED
+        print("Magnetic Field Detected!")
+    else:
+        GPIO.output(LED_PIN, GPIO.LOW) # Turn off the LED
+    time.sleep(1) # Wait for 1 second
+
+# Clean up the GPIO pins (this line will not be reached without a try-except block)
+GPIO.cleanup()
