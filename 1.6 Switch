@@ -1,0 +1,21 @@
+import RPi.GPIO as GPIO
+import time
+
+# Define the pins for the switch and LED
+SWITCH_PIN = 17 # Switch connected to GPIO pin 17
+LED_PIN = 27 # LED connected to GPIO pin 27
+
+# Set up the GPIO mode
+GPIO.setmode(GPIO.BCM) # Use BCM pin numbering
+GPIO.setup(SWITCH_PIN, GPIO.IN, pull_up_down=GPIO.PUD_UP) # Set switch pin as input with pull-up resistor
+GPIO.setup(LED_PIN, GPIO.OUT) # Set LED pin as output
+
+while True:
+    if GPIO.input(SWITCH_PIN) == GPIO.LOW: # If the switch is pressed
+        GPIO.output(LED_PIN, GPIO.HIGH) # Turn on the LED
+    else:
+        GPIO.output(LED_PIN, GPIO.LOW) # Turn off the LED
+    time.sleep(0.1) # Wait for 0.1 seconds
+
+# Clean up the GPIO pins (this line will not be reached without a try-except block)
+GPIO.cleanup()
